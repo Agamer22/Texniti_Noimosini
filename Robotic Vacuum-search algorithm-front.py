@@ -48,6 +48,9 @@ def move_base(state):  # Στέλνει τη σκούπα στη βάση της
         state[-1] = 0         
     return state
 
+def heuristic(state):
+    return sum(state[i] for i in range(1, 9))
+
 
 '''
 Συνάρτηση εύρεσης απογόνων της τρέχουσας κατάστασης με βάση το αριστερά, το δεξιά και τη βάση.
@@ -108,12 +111,22 @@ def expand_front(front, method):
             node=front.pop(0)
             for child in find_children(node):
                 front.insert(0,child)
-
-
-
-
-    #elif method=='BFS':
-    #elif method=='BestFS':
+    elif method=='BFS':
+        if front:
+            print("Front:")
+            print(front)
+            node=front.pop(0)
+            for child in find_children(node):
+                front.append(child)
+    elif method=='BestFS':
+        if front:
+            print("Front:")
+            print(front)
+            node = front.pop(0)
+            children = find_children(node)
+            children.sort(key=heuristic)
+            for child in children:
+                front.insert(0, child)
     #else: "other methods to be added"
 
     return front
