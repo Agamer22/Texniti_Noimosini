@@ -28,7 +28,27 @@ def move_left(state):
             state[state[0]]=0
             
         return state
- 
+
+def move_right(state):
+    if state[-1]<3 and state[0]<8:
+        state[0]=state[0]+1
+        if state[state[0]]>3-state[-1]:
+            state[state[0]]=state[state[0]] - (3-state[-1])
+            state[-1]=3
+        else:
+            state[-1]= state[-1] + state[state[0]]
+            state[state[0]]=0
+
+        return state
+
+def move_base(state):
+    if state[-1]=3:
+        state[0]=state[10]
+        state[-1]=0
+
+    return state
+
+#####
 
 '''
 Συνάρτηση εύρεσης απογόνων της τρέχουσας κατάστασης
@@ -133,7 +153,7 @@ def find_solution(front, closed, goal, method):
            
 def main():
     
-    initial_state = [3, 2, 3, 0, 0, 2, 0, 1, 8, 3, 0] 
+    initial_state = [3, 2, 3, 0, 0, 2, 0, 1, 2, 3, 0] 
     """ ----------------------------------------------------------------------------
     **** [Θέση σκούπας, σκουπίδια 1ου πλακιδίου, σκουπίδια 2ου, σκουπίδια 3ου, σκουπίδια 4ου, 
           σκουπίδια 5ου, σκουπίδια 6ου, σκουπίδια 7ου, σκουπίδια 8ου, θέση βάσης, σκουπίδια σκούπας]
