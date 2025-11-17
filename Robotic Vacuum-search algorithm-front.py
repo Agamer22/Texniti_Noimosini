@@ -38,12 +38,16 @@ def move_right(state):
 
         return state
 
-def move_base(state):                                           #Στέλνει τη σκούπα στη βάση της.
-    if state[-1]==3:
-        state[0]=state[10]
-        state[-1]=0
-
+def move_base(state):  # Στέλνει τη σκούπα στη βάση της.
+    c = 0
+    for i in range(1,8):
+        if state[i] > 0: 
+            c += 1
+    if state[-1] == 3 or state[-1] <= 3 and c == 0:
+        state[0] = state[-2]
+        state[-1] = 0         
     return state
+
 
 '''
 Συνάρτηση εύρεσης απογόνων της τρέχουσας κατάστασης με βάση το αριστερά, το δεξιά και τη βάση.
@@ -65,8 +69,10 @@ def find_children(state):
 
     if left_child!=None:
         children.append( left_child)
+
     if right_child!=None:
         children.append( right_child)
+
     if base_child!=None:
         children.append( base_child)
 
