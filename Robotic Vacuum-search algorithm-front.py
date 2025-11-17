@@ -46,10 +46,8 @@ def move_base(state):#Στέλνει τη σκούπα στη βάση της.
 
     return state
 
-#####
-
 '''
-Συνάρτηση εύρεσης απογόνων της τρέχουσας κατάστασης
+Συνάρτηση εύρεσης απογόνων της τρέχουσας κατάστασης με βάση το αριστερά, το δεξιά και τη βάση.
 '''
 def find_children(state):
     
@@ -57,13 +55,24 @@ def find_children(state):
     
     left_state=copy.deepcopy(state)
     left_child=move_left(left_state)
-    
-    if  left_child!=None: 
+
+    right_child=copy.deepcopy(state)
+    right_chlid=move_left(left_state)
+
+    base_state=copy.deepcopy(state)
+    base_child=move_base(base_state)
+
+
+
+    if left_child!=None: 
         children.append( left_child)
-        
+    if right_child!=None:
+        children.append( right_chlid)
+    if base_child!=None:
+        children.append( base_child) 
     
-    
-    
+
+
     return children
 
 
@@ -170,3 +179,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+ 
