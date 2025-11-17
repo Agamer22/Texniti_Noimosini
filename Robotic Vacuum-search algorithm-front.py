@@ -24,7 +24,6 @@ def move_left(state):
         else:                                                   #Στην περίπτωση που χωράνε όλα, τα σκουπίζει και ενημερώνει ότι το πλακάκι είναι καθαρό.
             state[-1]= state[-1] + state[state[0]]
             state[state[0]]=0
-
         return state
 
 def move_right(state):
@@ -56,8 +55,8 @@ def find_children(state):
     left_state=copy.deepcopy(state)
     left_child=move_left(left_state)
 
-    right_child=copy.deepcopy(state)
-    right_chlid=move_left(left_state)
+    right_state=copy.deepcopy(state)
+    right_child=move_left(right_state)
 
     base_state=copy.deepcopy(state)
     base_child=move_base(base_state)
@@ -67,7 +66,7 @@ def find_children(state):
     if left_child!=None:
         children.append( left_child)
     if right_child!=None:
-        children.append( right_chlid)
+        children.append( right_child)
     if base_child!=None:
         children.append( base_child)
 
@@ -103,6 +102,9 @@ def expand_front(front, method):
             node=front.pop(0)
             for child in find_children(node):
                 front.insert(0,child)
+
+
+
 
     #elif method=='BFS':
     #elif method=='BestFS':
