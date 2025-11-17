@@ -14,35 +14,33 @@ import copy
 
 # ******** Operators
 # ******** Τελεστές
-# mpla mpla mpla
 
-    
 def move_left(state):
-    if state[-1]<3 and state[0]>1:
-        state[0]=state[0]-1
-        if state[state[0]]>3-state[-1]:
-            state[state[0]]=state[state[0]] - (3-state[-1])
+    if state[-1]<3 and state[0]>1:#Ελέγχει αν είναι γεμάτη η σκούπα και αν μπορεί να κινηθεί αριστερά.
+        state[0]=state[0]-1 
+        if state[state[0]]>3-state[-1]:#Στην περίπτωση που η σκούπα έχει σκουπίδια ελέγχει αν τα σκουπίδια είναι περισσότερα από όσα χωράει.  
+            state[state[0]]=state[state[0]] - (3-state[-1])#Σε αυτήν την περίπτωση παίρνει όσα μπορεί και επιστρέφει στη βάση. 
             state[-1]=3
-        else:
+        else:#Στην περίπτωση που χωράνε όλα, τα σκουπίζει και ενημερώνει ότι το πλακάκι είναι καθαρό. 
             state[-1]= state[-1] + state[state[0]]
             state[state[0]]=0
             
         return state
 
 def move_right(state):
-    if state[-1]<3 and state[0]<8:
+    if state[-1]<3 and state[0]<8:#Ελέγχει αν είναι γεμάτη η σκούπα και αν μπορεί να κινηθεί δεξιά. 
         state[0]=state[0]+1
-        if state[state[0]]>3-state[-1]:
-            state[state[0]]=state[state[0]] - (3-state[-1])
+        if state[state[0]]>3-state[-1]:#Στην περίπτωση που η σκούπα έχει σκουπίδια ελέγχει αν τα σκουπίδια είναι περισσότερα από όσα χωράει.
+            state[state[0]]=state[state[0]] - (3-state[-1])#Σε αυτήν την περίπτωση παίρνει όσα μπορεί και επιστρέφει στη βάση.
             state[-1]=3
-        else:
+        else:#Στην περίπτωση που χωράνε όλα, τα σκουπίζει και ενημερώνει ότι το πλακάκι είναι καθαρό. 
             state[-1]= state[-1] + state[state[0]]
             state[state[0]]=0
 
         return state
 
-def move_base(state):
-    if state[-1]=3:
+def move_base(state):#Στέλνει τη σκούπα στη βάση της.
+    if state[-1]==3:
         state[0]=state[10]
         state[-1]=0
 
