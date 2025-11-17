@@ -56,7 +56,7 @@ def find_children(state):
     left_child=move_left(left_state)
 
     right_state=copy.deepcopy(state)
-    right_child=move_left(right_state)
+    right_child=move_right(right_state)
 
     base_state=copy.deepcopy(state)
     base_child=move_base(base_state)
