@@ -14,7 +14,7 @@ import copy
 
 # ******** Operators
 # ******** Τελεστές
-
+# mpla mpla mpla
 
     
 def move_left(state):
