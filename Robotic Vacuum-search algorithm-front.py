@@ -7,9 +7,8 @@
 ******** (επέκταση μετώπου μόνο)
 ******** Συγγραφέας: Εργαστήριο ΤΝ
 """
-
 import copy
-
+import time 
 
 
 # ******** Operators
@@ -130,7 +129,6 @@ def expand_front(front, method):
             for child in children:
                 new_path = path + [child]
                 front.insert(0, (child, new_path))
-    #else: "other methods to be added"
 
     return front
 
@@ -188,14 +186,37 @@ def find_solution(front, closed, goal, method):
 """
 
 def main():
-
+    
     initial_state = [3, 2, 3, 0, 0, 2, 0, 1, 2, 3, 0]
     """ ----------------------------------------------------------------------------
     **** [Θέση σκούπας, σκουπίδια 1ου πλακιδίου, σκουπίδια 2ου, σκουπίδια 3ου, σκουπίδια 4ου,
           σκουπίδια 5ου, σκουπίδια 6ου, σκουπίδια 7ου, σκουπίδια 8ου, θέση βάσης, σκουπίδια σκούπας]
     """
     goal = [3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0]
-    method='DFS'
+    while True:
+        print('Insert method:')
+        print('1 for DFS 2 for BFS 3 for BestFS')
+        
+        try:
+            choice = int(input("Enter number 1–3: "))
+        except:
+            print('ERROR:Wrong input')
+            continue
+        if choice == 1:
+            method = 'DFS'
+            break
+        elif choice == 2:
+            method = 'BFS'
+            break
+        elif choice == 3:
+            method = 'BestFS'
+            break
+        else:
+            print('ERROR: Value must be between 1 and 3.Try again.')
+
+
+
+
 
     """ ----------------------------------------------------------------------------
     **** starting search
@@ -203,7 +224,11 @@ def main():
     """
 
     print('____BEGIN__SEARCHING____')
+    start = time.time()
     find_solution(make_front(initial_state), [], goal, method)
+    end = time.time()
+    length = end - start
+    print(f"\n\nIt took {length:.4f} seconds!")
     #find_solution(make_front(initial_state), [], method)
 
 if __name__ == "__main__":
