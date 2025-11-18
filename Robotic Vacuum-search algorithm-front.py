@@ -49,7 +49,7 @@ def move_base(state):  # Στέλνει τη σκούπα στη βάση της
     return state
 
 def heuristic(state):
-    return sum(state[i] for i in range(1, 9))
+    return sum(state[i] for i in range(1, 8))
 
 
 '''
@@ -96,7 +96,7 @@ def find_children(state):
 """
 
 def make_front(state):
-    return [state]
+    return [(state, [state])]
 
 """ ----------------------------------------------------------------------------
 **** expanding front
@@ -107,26 +107,29 @@ def expand_front(front, method):
     if method=='DFS':
         if front:
             print("Front:")
-            print(front)
-            node=front.pop(0)
+            print(front[0])
+            node, path = front.pop(0)
             for child in find_children(node):
-                front.insert(0,child)
+                new_path = path + [child]
+                front.insert(0,(child, new_path))
     elif method=='BFS':
         if front:
             print("Front:")
-            print(front)
-            node=front.pop(0)
+            print(front[0])
+            node, path = front.pop(0)
             for child in find_children(node):
-                front.append(child)
+                new_path = path + [child]
+                front.append((child, new_path))
     elif method=='BestFS':
         if front:
             print("Front:")
-            print(front)
-            node = front.pop(0)
+            print(front[0])
+            node, path = front.pop(0)
             children = find_children(node)
             children.sort(key=heuristic)
             for child in children:
-                front.insert(0, child)
+                new_path = path + [child]
+                front.insert(0, (child, new_path))
     #else: "other methods to be added"
 
     return front
@@ -149,23 +152,28 @@ def expand_front(front, method):
 
 def find_solution(front, closed, goal, method):
 #def find_solution(front, closed, method):
+    node,path=front[0]
 
     if not front:
         print('_NO_SOLUTION_FOUND_')
 
-    elif front[0] in closed:
+    elif node in closed:
         new_front=copy.deepcopy(front)
         new_front.pop(0)
         find_solution(new_front, closed, goal, method)
         #find_solution(new_front, closed, method)
 
    # elif is_goal_state(front[0]):
-    elif front[0]==goal:
+    elif node==goal:
         print('_GOAL_FOUND_')
         print(front[0])
+        print("Path to goal:")
+        for step in path:
+            print(step)
+        return
 
     else:
-        closed.append(front[0])
+        closed.append(node)
         front_copy=copy.deepcopy(front)
         front_children=expand_front(front_copy, method)
         closed_copy=copy.deepcopy(closed)
